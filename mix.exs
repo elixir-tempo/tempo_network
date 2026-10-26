@@ -8,7 +8,7 @@ defmodule Tempo.Network.MixProject do
     )
   end
 
-  @version "0.1.0-dev"
+  @version "1.0.0-dev"
 
   def project do
     [
@@ -69,7 +69,7 @@ defmodule Tempo.Network.MixProject do
 
   defp deps do
     [
-      {:ex_tempo, path: "../tempo"},
+      {:ex_tempo, github: "elixir-tempo/tempo", branch: "main"},
       {:ex_doc, "~> 0.38", only: [:dev, :test, :release], optional: true, runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},

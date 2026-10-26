@@ -16,7 +16,7 @@ Before Tempo 2.0 these modules were part of `ex_tempo`. Their names are unchange
 def deps do
   [
     {:ex_tempo, "~> 2.0"},
-    {:ex_tempo_network, "~> 0.1"}
+    {:ex_tempo_network, "~> 1.0"}
   ]
 end
 ```

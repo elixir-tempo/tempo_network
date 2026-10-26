@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.1.0] — Unreleased
+## [v1.0.0] — Unreleased
 
 ### Highlights
 
