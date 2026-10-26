@@ -536,6 +536,15 @@ defmodule Tempo.Network.Relation do
   holds the Allen relation, with the neighbours the constraints also
   admit, and never its converse.
 
+  ### Arguments
+
+  * `allen` is one of Allen's thirteen relations, such as `:precedes`,
+    `:meets` or `:during`.
+
+  ### Returns
+
+  * The `t:relation_type/0` whose constraints are the Allen relation's.
+
   ### Examples
 
       iex> Tempo.Network.Relation.from_allen(:meets)

@@ -191,6 +191,16 @@ defmodule Tempo.Network.TimePeriod do
   A convenience for tests and traces; the solver works at the network's
   finest unit rather than always in years.
 
+  ### Arguments
+
+  * `bound` is a date bound of a period, a `t:Tempo.t/0`, or `nil`.
+
+  ### Returns
+
+  * The bound's year as an integer.
+
+  * `nil` when the bound is `nil`.
+
   ### Examples
 
       iex> Tempo.Network.TimePeriod.year(~o"1200Y")

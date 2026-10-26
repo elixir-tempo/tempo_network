@@ -1,8 +1,8 @@
 # Changelog
 
-## [v1.0.0] — Unreleased
+## [v1.0.0] — 2026-10-26
 
-### Highlights
+### Added
 
 * `Tempo.Network`, `Tempo.Network.Solver`, `Tempo.Schedule` and `Tempo.Interval.RelationNetwork`, moved from `ex_tempo` 1.x with their names and functions unchanged, on Tempo 2.0. See the [README](https://hexdocs.pm/ex_tempo_network/readme.html).
 

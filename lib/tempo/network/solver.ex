@@ -236,6 +236,37 @@ defmodule Tempo.Network.Solver do
   @doc """
   Whether two periods are *certainly* contemporary — true only when
   every valid chronology has them overlapping. See `contemporaneity/3`.
+
+  ### Arguments
+
+  * `network` is a `t:Tempo.Network.t/0`.
+
+  * `p1` and `p2` are ids of periods present in the network.
+
+  ### Returns
+
+  * `true` when every valid chronology has the periods overlapping.
+
+  * `false` otherwise, or when the network has no valid chronology.
+
+  * It raises the exception the network's builders recorded, where they
+    recorded one.
+
+  ### Examples
+
+      iex> network =
+      ...>   Tempo.Network.new()
+      ...>   |> Tempo.Network.add_period(:k1, from: {:not_before, 1200}, duration: {:at_most, 15})
+      ...>   |> Tempo.Network.add_period(:k2, to: {:not_after, 1300}, duration: {30, 100})
+      ...>   |> Tempo.Network.add_period(:s1, duration: {20, 100})
+      ...>   |> Tempo.Network.add_period(:s2, duration: {20, 100})
+      ...>   |> Tempo.Network.add_sequence([:k1, :k2])
+      ...>   |> Tempo.Network.add_sequence([:s1, :s2])
+      ...>   |> Tempo.Network.add_relation(:starts_during, :s1, :k1)
+      ...>   |> Tempo.Network.add_relation(:ends_during, :s2, :k2)
+      iex> Tempo.Network.Solver.certainly_contemporary?(network, :k1, :s1)
+      true
+
   """
   @spec certainly_contemporary?(Network.t(), term(), term()) :: boolean()
   def certainly_contemporary?(%Network{} = network, p1, p2) do
@@ -245,6 +276,37 @@ defmodule Tempo.Network.Solver do
   @doc """
   Whether two periods are *possibly* contemporary — true when at least
   one valid chronology has them overlapping. See `contemporaneity/3`.
+
+  ### Arguments
+
+  * `network` is a `t:Tempo.Network.t/0`.
+
+  * `p1` and `p2` are ids of periods present in the network.
+
+  ### Returns
+
+  * `true` when at least one valid chronology has the periods overlapping.
+
+  * `false` otherwise, or when the network has no valid chronology.
+
+  * It raises the exception the network's builders recorded, where they
+    recorded one.
+
+  ### Examples
+
+      iex> network =
+      ...>   Tempo.Network.new()
+      ...>   |> Tempo.Network.add_period(:k1, from: {:not_before, 1200}, duration: {:at_most, 15})
+      ...>   |> Tempo.Network.add_period(:k2, to: {:not_after, 1300}, duration: {30, 100})
+      ...>   |> Tempo.Network.add_period(:s1, duration: {20, 100})
+      ...>   |> Tempo.Network.add_period(:s2, duration: {20, 100})
+      ...>   |> Tempo.Network.add_sequence([:k1, :k2])
+      ...>   |> Tempo.Network.add_sequence([:s1, :s2])
+      ...>   |> Tempo.Network.add_relation(:starts_during, :s1, :k1)
+      ...>   |> Tempo.Network.add_relation(:ends_during, :s2, :k2)
+      iex> Tempo.Network.Solver.possibly_contemporary?(network, :k1, :s2)
+      false
+
   """
   @spec possibly_contemporary?(Network.t(), term(), term()) :: boolean()
   def possibly_contemporary?(%Network{} = network, p1, p2) do

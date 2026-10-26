@@ -2,13 +2,19 @@
 
 Chronological networks and dependency scheduling for [Tempo](https://hexdocs.pm/ex_tempo): periods known only relative to one another, the relations between them, and what follows from what you know.
 
-* `Tempo.Network` holds periods whose starts, ends and lengths may each be exact, one-sided, a range or unknown, with the sequences and relations that tie them. `Tempo.Network.Solver` says whether what you have stated can all be true, and gives the tightest dates each period can take.
+## Features
 
-* `Tempo.Schedule` plans tasks with lengths and dependencies: when each can start at the earliest and at the latest, which have slack, and the critical path.
+* **Chronological networks** — `Tempo.Network` holds periods whose starts, ends and lengths may each be exact, one-sided, a range or unknown, with the sequences and relations that tie them. `Tempo.Network.Solver` says whether what you have stated can all be true, and gives the tightest dates each period can take.
 
-* `Tempo.Interval.RelationNetwork` reasons with Allen's relations alone, where no date or length is known.
+* **Dependency scheduling** — `Tempo.Schedule` plans tasks with lengths and dependencies: when each can start at the earliest and at the latest, which have slack, and the critical path.
+
+* **Allen's relations alone** — `Tempo.Interval.RelationNetwork` reasons with Allen's relations alone, where no date or length is known.
 
 Before Tempo 2.0 these modules were part of `ex_tempo`. Their names are unchanged.
+
+## Supported Elixir and OTP versions
+
+Tempo Network supports **Elixir 1.17** and later on **Erlang/OTP 27** and later.
 
 ## Installation
 
@@ -21,9 +27,9 @@ def deps do
 end
 ```
 
-Tempo Network requires Elixir 1.17 or later and Erlang/OTP 27 or later.
+## Quick start
 
-## A plan
+### A plan
 
 ```elixir
 iex> import Tempo.Sigils
@@ -44,7 +50,7 @@ iex> Tempo.Schedule.critical_path(plan)
 
 > *"Design for two days from the first of June, then build and document, then ship by the eighth. Shipping takes the sixth and the seventh; the documentation has slack; the critical path is design, build, ship."*
 
-## A chronology
+### A chronology
 
 ```elixir
 iex> import Tempo.Sigils
@@ -68,3 +74,13 @@ The [Chronological networks](https://hexdocs.pm/ex_tempo_network/chronological-n
 ## Written ends
 
 Tempo writes an interval as it is said: an end written to a date is the date the interval runs through. A two-day task that starts on 1 June is therefore `~o"2026-06-01/2026-06-02"`, where `ex_tempo` 1.x wrote `2026-06-01/2026-06-03`. A network's own bounds (`earliest_start`, `latest_end` and the rest) are points and are unchanged.
+
+## Documentation
+
+* [Chronological networks](https://hexdocs.pm/ex_tempo_network/chronological-networks.html) — a whole chronology through stating, checking, tightening and tracing.
+
+The full documentation, every module and function with the guide, is on [HexDocs](https://hexdocs.pm/ex_tempo_network).
+
+## License
+
+Tempo Network is licensed under the Apache License 2.0; see [LICENSE.md](https://github.com/elixir-tempo/tempo_network/blob/v1.0.0/LICENSE.md).

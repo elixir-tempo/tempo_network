@@ -10,8 +10,7 @@ env:
   MIX_ENV: test
   LOCALIZE_DEFAULT_LOCALE: en
 
-# ex_tempo is taken from GitHub `main` until 2.0 is on hex, and then from
-# the hex release (`~> 2.0`).
+# ex_tempo is taken from hex (`~> 2.0`).
 
 permissions:
   contents: read

@@ -67,6 +67,18 @@ defmodule Tempo.Network.Qualitative do
 
   * `{:error, reason}` for an error the network's builders recorded.
 
+  ### Examples
+
+      iex> network =
+      ...>   Tempo.Network.new()
+      ...>   |> Tempo.Network.add_period(:a, from: ~o"2000", to: ~o"2005")
+      ...>   |> Tempo.Network.add_period(:b, from: ~o"2010", to: ~o"2015")
+      ...>   |> Tempo.Network.add_period(:c, [])
+      ...>   |> Tempo.Network.add_relation(:before, :b, :c)
+      iex> qualitative = Tempo.Network.Qualitative.from_network(network)
+      iex> Tempo.Interval.RelationNetwork.between(qualitative, :a, :b)
+      [:precedes]
+
   """
   @spec from_network(Network.t()) ::
           RelationNetwork.t() | {:error, :inconsistent | Exception.t()}
@@ -106,6 +118,22 @@ defmodule Tempo.Network.Qualitative do
 
   * The updated `t:Tempo.Network.t/0`.
 
+  ### Examples
+
+      iex> network =
+      ...>   Tempo.Network.new()
+      ...>   |> Tempo.Network.add_period(:a, from: ~o"2000", to: ~o"2005")
+      ...>   |> Tempo.Network.add_period(:b, from: ~o"2010", to: ~o"2015")
+      ...>   |> Tempo.Network.add_period(:c, [])
+      ...>   |> Tempo.Network.add_relation(:before, :b, :c)
+      iex> {:ok, propagated} =
+      ...>   network
+      ...>   |> Tempo.Network.Qualitative.from_network()
+      ...>   |> Tempo.Interval.RelationNetwork.propagate()
+      iex> refined = Tempo.Network.Qualitative.apply_to_network(propagated, network)
+      iex> Tempo.Network.Solver.relation(refined, :a, :c)
+      :precedes
+
   """
   @spec apply_to_network(RelationNetwork.t(), Network.t()) :: Network.t()
   def apply_to_network(%RelationNetwork{} = qualitative, %Network{} = network) do
@@ -143,6 +171,18 @@ defmodule Tempo.Network.Qualitative do
     a contradiction the metric solver did not.
 
   * `{:error, reason}` for an error the network's builders recorded.
+
+  ### Examples
+
+      iex> network =
+      ...>   Tempo.Network.new()
+      ...>   |> Tempo.Network.add_period(:a, from: ~o"2000", to: ~o"2005")
+      ...>   |> Tempo.Network.add_period(:b, from: ~o"2010", to: ~o"2015")
+      ...>   |> Tempo.Network.add_period(:c, [])
+      ...>   |> Tempo.Network.add_relation(:before, :b, :c)
+      iex> {:ok, refined} = Tempo.Network.Qualitative.refine(network)
+      iex> Tempo.Network.Solver.relation(refined, :a, :c)
+      :precedes
 
   """
   @spec refine(Network.t()) ::

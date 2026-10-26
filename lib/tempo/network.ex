@@ -238,6 +238,10 @@ defmodule Tempo.Network do
   The list of all period ids referenced by the network — those with a
   registered period plus any named only by a sequence or relation.
 
+  ### Arguments
+
+  * `network` is a `t:Tempo.Network.t/0`.
+
   ### Returns
 
   * a sorted-by-insertion list of unique period ids.
